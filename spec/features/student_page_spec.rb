@@ -96,3 +96,29 @@ describe 'user visits /students/:id/edit' do
     end
   end
 end
+
+
+# As a user
+# When I visit `/students`
+# And I click "Delete" next to a student's name
+# I see the students index
+# And that student's name is no longer on the page
+describe 'user visits /students' do
+  describe 'it should allow user to delete and existing student' do
+    it 'deletes and existing student' do
+      student_1 = Student.create!(name: 'Ian')
+      student_2 = Student.create!(name: 'Dione')
+
+      visit students_path
+
+      expect(current_path).to have_content(student_1.name)
+      expect(current_path).to have_content(student_2.name)
+
+      click_on 'delete'
+
+      expect(current_path).to eq(students_path)
+      expect(page).to have_content(student_2.name)
+      expect(page).to not_have_content(student_1.name)
+    end
+  end
+end

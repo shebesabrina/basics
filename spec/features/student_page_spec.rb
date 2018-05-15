@@ -69,3 +69,30 @@ describe 'when user visits /students/new' do
     end
   end
 end
+
+# As a user
+# When I visit `/students/:id/edit`
+# And I enter a new name
+# And I click submit
+# I am on the student show page
+# And I can see that student's new name
+
+describe 'user visits /students/:id/edit' do
+  describe 'it should allow user to edit and existing student' do
+    it 'shows the updated student name' do
+      student_1 = Student.create!(name: 'Ian')
+
+      new_name = 'Sabrina'
+
+      visit edit_student_path
+
+      fill_in 'student[name]', with: new_name
+
+      click_on 'submit'
+
+      expect(current_path).to eq(student_path)
+      expect(page).to have_content(new_name)
+      expect(page).to not_have_content(student_1.name)
+    end
+  end
+end

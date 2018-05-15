@@ -114,6 +114,8 @@ describe 'user visits /students' do
       expect(current_path).to have_content(student_1.name)
       expect(current_path).to have_content(student_2.name)
 
+      visit student_path(student_1)
+
       click_on 'delete'
 
       expect(current_path).to eq(students_path)

@@ -1,9 +1,7 @@
-<h1>All Students</h1>
+<h1>Create a New Student</h1>
 
-<ul>
-  <% @students.each do |student| %>
-    <li>
-      <%= link_to student.name, student_path(student) %>
-    </li>
-  <% end %>
-</ul>
+<%=form_for @student do |f| %>
+  <%=f.label :name %>
+  <%=f.text_field :name %>
+  <%=f.submit %>
+<%end%>

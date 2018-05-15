@@ -47,20 +47,24 @@ end
 describe 'when user visits /students/new' do
   describe 'they fill in a name and click submit' do
     describe 'user sees their name on student show page' do
-      xit "displays new student name" do
+      it "displays new student name" do
           student_1 = Student.create!(name: 'Ian')
           student_2 = Student.create!(name: 'Dione')
 
           new_name = 'Sabrina'
 
+          visit new_student_path
+
           expect(current_path).to eq(new_student_path)
 
           fill_in 'student[name]', with: new_name
 
-          click_on 'submit'
+          click_on 'Create Student'
 
           expect(current_path).to eq(student_path)
           expect(page).to have_content(new_name)
+          expect(page).to not_have_content(student_1.name)
+          expect(page).to not_have_content(student_2.name)
       end
     end
   end
